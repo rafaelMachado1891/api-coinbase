@@ -5,9 +5,10 @@ from datetime import datetime
 base = declarative_base()
 
 class BitcoinPreco(base):
-    __tablename__ = "bitcoin_preco"
+    __tablename__ = "bitcoin_precos"
 
-    id = Column(Integer, primary_key= True, Auto_increment = True)
+    id = Column(Integer, primary_key= True, autoincrement= True)
     valor = Column(Float, nullable=False)
-    Criptomoeda = Column(String(50), nullable=False)
+    criptomoeda = Column(String(50), nullable=False)
+    moeda = Column(String(50), nullable=True)
     timestamp = Column(DateTime, default=datetime.now())
