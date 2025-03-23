@@ -10,12 +10,20 @@ from logging import basicConfig, getLogger
 import logging
 import logfire
 
-logfire.configure()
+load_dotenv()
+
+token = os.getenv("LOGFIRE_TOKEN")
+
+print(token)
+
+
+logfire.configure(token=token)
 basicConfig(handlers=[logfire.LogfireLoggingHandler()])
 logger = getLogger(__name__)
 logger.setLevel(logging.INFO)
 logfire.instrument_requests()
 logfire.instrument_sqlalchemy()
+
 
 load_dotenv()
 
