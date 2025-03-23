@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 from database import base, BitcoinPreco
 from logging import basicConfig, getLogger
+from logfire import instrument_requests
 import logging
 import logfire
 
