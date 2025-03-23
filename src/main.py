@@ -14,8 +14,6 @@ load_dotenv()
 
 token = os.getenv("LOGFIRE_TOKEN")
 
-print(token)
-
 
 logfire.configure(token=token)
 basicConfig(handlers=[logfire.LogfireLoggingHandler()])
