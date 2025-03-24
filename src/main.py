@@ -7,22 +7,16 @@ import os
 from dotenv import load_dotenv
 from database import base, BitcoinPreco
 from logging import basicConfig, getLogger
-from logfire import instrument_requests
 import logging
 import logfire
 
-load_dotenv()
 
-token = os.getenv("LOGFIRE_TOKEN")
-
-
-logfire.configure(token=token)
+logfire.configure()
 basicConfig(handlers=[logfire.LogfireLoggingHandler()])
 logger = getLogger(__name__)
 logger.setLevel(logging.INFO)
 logfire.instrument_requests()
 logfire.instrument_sqlalchemy()
-
 
 load_dotenv()
 
