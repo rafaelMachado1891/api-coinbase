@@ -19,8 +19,8 @@ conn = psycopg2.connect(
     user = user, 
     password = password,
     host = host,
-    db= db
-    port = port
+    port = port,
+    dbname= db
 )
 
 query = 'SELECT * FROM bitcoin_precos ORDER BY timestamp DESC'
@@ -29,4 +29,17 @@ df = pd.read_sql_query(query, conn)
 
 conn.close()
 
-print(df)
+st.set_page_config(page_title="Dashboard de Preços do Bitcoin", layout="wide")
+
+st.title("Dashboard de histórico de preços do bitcoin")
+
+st.subheader("Estatíticas gerais")
+col1, col2, col3 = st.columns(3)
+col1.metric("Preço Atual",f'${df['valor'].iloc[0]:,.2f}')
+col2.metric("Preço Máximo",f'${df["valor"].max():,.2f}')
+col3.metric("Preço Mínimo",f'${df["valor"].min():,.2f}')
+
+
+st.subheader("Dados mais recentes extraídos do banco de dados", divider="gray")
+
+st.dataframe(df)
