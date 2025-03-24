@@ -25,6 +25,10 @@ conn = psycopg2.connect(
 
 query = 'SELECT * FROM bitcoin_precos ORDER BY timestamp DESC'
 
+query_2= "SELECT timestamp,(valor - LAG(valor) OVER (ORDER BY timestamp ASC)) / valor *100 AS variacao FROM bitcoin_precos ORDER BY id DESC"
+
+df2= pd.read_sql_query(query_2, conn)
+
 df = pd.read_sql_query(query, conn)
 
 conn.close()
@@ -43,3 +47,6 @@ col3.metric("Preço Mínimo",f'${df["valor"].min():,.2f}')
 st.subheader("Dados mais recentes extraídos do banco de dados", divider="gray")
 
 st.dataframe(df)
+
+st.subheader("📈 Evolução do Preço do Bitcoin")
+st.line_chart(data=df2, x='timestamp', y='variacao', use_container_width=True)
